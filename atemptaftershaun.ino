@@ -20,21 +20,6 @@ Servo motor2;
 Servo motor3;
 Servo motor4;
 
-//front left
-//const int en1 = 2;
-//const int dir1 = 23;
-
-//front right
-//const int en2 = 3;
-//const int dir2 = 22;
-
-//back left
-//const int en3 = 11;
-//const int dir3 = 29;
-
-//back right
-//const int en4 = 5;
-//const int dir4 = 24;
 
 //5th one (hopper movement)
 const int en5 = 6;
@@ -60,34 +45,10 @@ int arm_motor_state = 0; //0 is off 1 is on
 int initial_pos = 80;
 
 void setup() {
-  //pinMode(en1, INPUT);
-  //pinMode(en2, INPUT);
-  //pinMode(en3, INPUT);
-  //pinMode(en4, INPUT);
-  //pinMode(en5, INPUT);
-//  pinMode(en6, INPUT);
   pinMode(wall_pin, INPUT);
   pinMode(arm_pin, INPUT);
 
   delay(1000);
-
-  //pinMode(en1, OUTPUT);
-  //pinMode(dir1, OUTPUT);
-
-  //pinMode(en2, OUTPUT);
-  //pinMode(dir2, OUTPUT);
-
-  //pinMode(en3, OUTPUT);
-  //pinMode(dir3, OUTPUT);
-
-  //pinMode(en4, OUTPUT);
-  //pinMode(dir4, OUTPUT);
-
-  //pinMode(en5, OUTPUT);
-  //pinMode(dir5, OUTPUT);
-
-//  pinMode(en6, OUTPUT);
-  //pinMode(dir6, OUTPUT);
 
   pinMode(wall_pin, OUTPUT);
   pinMode(arm_pin, OUTPUT);
@@ -170,15 +131,14 @@ void loop() {
 //    move_arm(0);
   }
 }
-//int motor1 = en1;
-//int motor2 = en2;
-//int motor3 = en3;
-//int motor4 = en4;
+
 
 
 //move left and right
 
 //mapping the signal from the joystick to actual speeds
+
+//shaun did this and im not messing with it
 int map_analog(float val) {
   int ret_val;
   //  deadzone between 0 and 3200
@@ -200,8 +160,8 @@ void move_all_motors() {
   int strafe_spd;
   int rot_spd;
 
-  //analog signal for the left joystick, this is to move forward and back
-  drive = Xbox.getAnalogHat(LeftHatY);
+  //analog signal for the left joystick, this is to move forward and back VALS 0 - 180
+  drive = Xbox.getAnalogHat(LeftHatY); //left joystick up and down
   strafe = Xbox.getAnalogHat(LeftHatX);
   rot = Xbox.getAnalogHat(RightHatX);
   
@@ -255,77 +215,40 @@ void move_motor1(int spd) {
   Serial.print("BEFORE speed is");
   Serial.print(spd);
   Serial.print("\n");
-  //analogWrite(motor1, spd);
   motor1.write(spd); //spd is between 0 (full reverse) 90 (stop) 180 (full fullward)
   Serial.print("AFTER speed is");
   Serial.print(spd);
   Serial.print("\n");
-  //if (spd >= 0) {
-  //  analogWrite(en1, spd);
-  //  digitalWrite(dir1, HIGH);
-  //} else if (spd < 0) {
-  // analogWrite(en1, -spd);
-  //  digitalWrite(dir1, LOW);
-  //}
 }
 
 void move_motor2(int spd) {
   Serial.print("BEFORE speed is ");
   Serial.print(spd);
   Serial.print("\n");
-
-  ///analogWrite(motor2, spd);
   motor2.write(spd);
   Serial.print("AFTER speed is "); 
   Serial.print(spd);
   Serial.print("\n");
-  //0-255 is sent to spd
-  //150 is stop
-  //254 is full forward
-  //70 is full backward
 
-  //if (spd >= 0) {
-  //  analogWrite(en2, spd);
-  //  digitalWrite(dir2, HIGH);
-  //} else if (spd < 0) {
-  //  analogWrite(en2, -spd);
-  // digitalWrite(dir2, LOW);
-  //}
 }
 
 void move_motor3(int spd) {
   Serial.print("BEFORE speed is ");
   Serial.print(spd);
   Serial.print("\n");
-  //analogWrite(motor3, spd);
   motor3.write(spd);
   Serial.print("AFTER speed is ");
   Serial.print(spd);
   Serial.print("\n");
-  //if (spd >= 0) {
-  //  analogWrite(en3, spd);
-  //  digitalWrite(dir3, HIGH);
-  //} else if (spd < 0) {
-  //  analogWrite(en3, -spd);
-  //  digitalWrite(dir3, LOW);
-  //}
 }
 
 void move_motor4(int spd) {
   Serial.print("BEFORE speed is");
   Serial.print(spd);
   Serial.print("\n");  
-  //analogWrite(motor4, spd);
   motor4.write(spd);
   Serial.print("AFTER speed is");
   Serial.print(spd);
-  //if (spd >= 0) {
-  //  analogWrite(en4, spd);
-  //  digitalWrite(dir4, HIGH);
-  //} else if (spd < 0) {
-  //  analogWrite(en4, -spd);
-  //  digitalWrite(dir4, LOW);
-  //}
 }
 
 void move_hopper(int spd) {
@@ -338,26 +261,4 @@ void move_hopper(int spd) {
   }
 }
 
-//void move_arm(int spd) {
-//  if (spd >= 0) {
-//    analogWrite(en6, spd);
-//    digitalWrite(dir6, HIGH);
-//  } else if (spd < 0) {
-//    analogWrite(en6, -spd);
-//    digitalWrite(dir6, LOW);
-//  }
-//}
 
-//void arm_motion() {
-///  if (Xbox.getButtonClick(L1)) {
- //   Serial.println("l1");
- //   if (arm_motor_state == 0) {
-//      move_arm(50);
-//      arm_motor_state = 1;
- //   } else {
-//      move_arm(0);
-  //    arm_motor_state = 0;
-    //}
- // }
-
-//}
