@@ -169,7 +169,7 @@ void move_all_motors() {
   drive_spd = map_analog(drive);
   strafe_spd =  map_analog(strafe);
   rot_spd =  map_analog(rot);
-  if(drive_spd < 105 && drive_spd > 75) {
+  /*if(drive_spd < 105 && drive_spd > 75) {
     drive_spd = 90;             //deadzone for stick in place
   } else if (drive_spd < 75) { //drive_spd 0-75
     drive_spd = drive_spd + 15; //now 15-90
@@ -187,16 +187,18 @@ void move_all_motors() {
     strafe_spd = strafe_spd - 15; //90-165
     strafe_spd = 60 + strafe_spd/3; //90-115
   }
-
-
+  */
+  drive_spd = (drive_spd - 90)/3;
+  strafe_spd = (strafe_spd - 90)/3;
+  rot_spd = (rot_spd - 90)/3;
   //move_motor1(-drive_spd + strafe_spd - rot_spd);
   //move_motor2(-drive_spd - strafe_spd + rot_spd);
   //move_motor3(-drive_spd - strafe_spd - rot_spd);
   //move_motor4(-drive_spd + strafe_spd + rot_spd);
-  move_motor1(drive_spd - strafe_spd);
-  move_motor2(-drive_spd + strafe_spd);
-  move_motor3(drive_spd - strafe_spd);
-  move_motor4(-drive_spd+ strafe_spd);
+  move_motor1(90 + drive_spd - strafe_spd + rot_spd);
+  move_motor2(90 - drive_spd + strafe_spd + rot_spd);
+  move_motor3(90 + drive_spd - strafe_spd + rot_spd);
+  move_motor4(90 - drive_spd + strafe_spd + rot_spd);
 
 }
 
