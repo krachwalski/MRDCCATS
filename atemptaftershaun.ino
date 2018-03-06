@@ -188,17 +188,26 @@ void move_all_motors() {
     strafe_spd = 60 + strafe_spd/3; //90-115
   }
   */
-  drive_spd = (drive_spd - 90)/3;
-  strafe_spd = (strafe_spd - 90)/3;
-  rot_spd = (rot_spd - 90)/3;
+  if(drive_spd < 150 && drive_spd > 30) {
+    drive_spd = 90;
+  }
+  if(strafe_spd < 150 && strafe_spd > 30) {
+    strafe_spd = 90;
+  }
+  if(rot_spd < 150 && rot_spd > 30) {
+    rot_spd = 90;
+  }
+  drive_spd = (drive_spd - 90)/6;
+  strafe_spd = (strafe_spd - 90)/6;
+  rot_spd = (rot_spd - 90)/6;
   //move_motor1(-drive_spd + strafe_spd - rot_spd);
   //move_motor2(-drive_spd - strafe_spd + rot_spd);
   //move_motor3(-drive_spd - strafe_spd - rot_spd);
   //move_motor4(-drive_spd + strafe_spd + rot_spd);
-  move_motor1(90 + drive_spd - strafe_spd + rot_spd);
+  move_motor1(90 + drive_spd + strafe_spd + rot_spd);
   move_motor2(90 - drive_spd + strafe_spd + rot_spd);
   move_motor3(90 + drive_spd - strafe_spd + rot_spd);
-  move_motor4(90 - drive_spd + strafe_spd + rot_spd);
+  move_motor4(90 - drive_spd - strafe_spd + rot_spd);
 
 }
 
