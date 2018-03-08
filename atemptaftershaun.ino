@@ -19,6 +19,10 @@ Servo motor1;
 Servo motor2;
 Servo motor3;
 Servo motor4;
+Servo vexMotor;
+Servo pulleyMotor;
+bool clamped = false;
+bool pulling = false;
 
 
 //5th one (hopper movement)
@@ -65,6 +69,8 @@ void setup() {
   motor2.attach(3,1000,2000);
   motor3.attach(11,1000,2000);
   motor4.attach(5,1000,2000);
+  vexMotor.attach(6,1000,2000);
+  pulleyMotor.attach(7,1000,2000);
 
 
   // enable diagnostic output
@@ -96,7 +102,23 @@ void loop() {
     //arm_motion();
 
     move_all_motors();
-    
+    if (Xbox.getButtonClick(X)) {
+      if (clamped) {
+        vexMotor.write(85);
+        delay(20);
+        vexMotor.write(90);
+      } 
+      else {
+        vexMotor.write(100);
+      }
+    }
+    if (Xbox.getButtonClick(Y)) {
+      if (pulling) {
+        pulleyMotor.write(90);
+      } else {
+        pulleyMotor.write(150);
+      }
+    }
     if (Xbox.getButtonClick(A)) {   //arm up
       arm_servo_state = 0;
       Serial.print("\r\nThe servo State is" + arm_servo_state);
@@ -197,7 +219,13 @@ void move_all_motors() {
   if(rot_spd < 150 && rot_spd > 30) {
     rot_spd = 90;
   }
-  drive_spd = (drive_spd - 90)/6;
+  if(drive_spd > 90) {
+    drive_spd = drive_spd - 60;
+  }
+  if(drive_spd < 90) {
+    drive_spd = drive_spd + 60;
+  }
+  drive_spd = (drive_spd - 90);
   strafe_spd = (strafe_spd - 90)/6;
   rot_spd = (rot_spd - 90)/6;
   //move_motor1(-drive_spd + strafe_spd - rot_spd);
